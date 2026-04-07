@@ -1,30 +1,6 @@
 [
   {
     "role": "user",
-    "content": "python -u \"d:\\Graduation_Project\\mental_health_bot\\Test\\ali dandash.py\""
-  },
-  {
-    "role": "assistant",
-    "content": "It seems like you're trying to run a Python script related to your graduation project. If you're experiencing any issues or have questions about your project, feel free to share! I'm here to support you."
-  },
-  {
-    "role": "user",
-    "content": "hi , i am ali dandsh and i feel sad today beacuse i missed my exam"
-  },
-  {
-    "role": "assistant",
-    "content": "Hi Ali, I'm really sorry to hear that you're feeling sad about missing your exam. It’s completely understandable to feel upset in a situation like this. Exams can be really important, and missing one can bring up a lot of emotions. If you’d like to talk more about how you're feeling or what happened, I'm here to listen."
-  },
-  {
-    "role": "user",
-    "content": "hi, i am ali dandsh and i feel sad beacause i missed my exam today"
-  },
-  {
-    "role": "assistant",
-    "content": "Hi Ali, I’m really sorry to hear that you’re feeling sad about missing your exam. It’s natural to feel disappointed when things don’t go as planned. If you’d like to share more about what happened or how you're feeling, I’m here to listen and support you."
-  },
-  {
-    "role": "user",
     "content": "can you give my some mental health doctors names for help me"
   },
   {
@@ -198,5 +174,29 @@
   {
     "role": "assistant",
     "content": "That's wonderful to hear, Salah! It's great when you have days filled with happiness. What’s contributing to your happy mood today? Is there anything special that happened, or are you just feeling good in general? I’d love to hear about it!"
+  },
+  {
+    "role": "user",
+    "content": "i feel sad because i missed my exam"
+  },
+  {
+    "role": "assistant",
+    "content": "I'm really sorry to hear that you're feeling sad about missing your exam. It's completely natural to feel disappointed in situations like this. Here are some steps you might consider:\n\n1. **Acknowledge Your Feelings**: It's okay to feel upset or frustrated about missing the exam. Allow yourself to feel those emotions without judgment.\n\n2. **Reflect on What Happened**: Think about why you missed the exam. Was it due to a scheduling conflict, illness, or something else? Understanding the cause can help you address any underlying issues.\n\n3. **Reach Out for Support**: If you can, talk to your teacher or professor. They might have options for you to make up the exam or provide guidance on what to do next.\n\n4. **Focus on the Future**: While it's tough right now, try to focus on what you can do moving forward. This might include preparing for future exams or finding ways to stay organized.\n\n5. **Practice Self-Care**: Engage in activities that make you feel better, whether it's spending time with friends, going for a walk, or enjoying a hobby.\n\n6. **Learn from the Experience**: Consider what you can do differently in the future to avoid missing important dates. This might involve setting reminders or creating a study schedule.\n\nRemember, one missed exam doesn't define your abilities or your future. You can bounce back from this. If you want to talk more about it or share how you're feeling, I'm here for you."
+  },
+  {
+    "role": "user",
+    "content": "i am ezzat"
+  },
+  {
+    "role": "assistant",
+    "content": "Nice to meet you, Ezzat! If there's anything specific you'd like to discuss or any questions you have, feel free to share. I'm here to help!"
+  },
+  {
+    "role": "user",
+    "content": "did you remmber what made me sad"
+  },
+  {
+    "role": "assistant",
+    "content": "Yes, you mentioned that you felt sad because you missed your exam. It's completely understandable to feel that way. If you'd like to talk more about it or if there's anything specific you'd like to discuss regarding that situation or anything else, I'm here to listen and help!"
   }
 ]
