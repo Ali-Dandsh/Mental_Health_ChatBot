@@ -36,7 +36,6 @@ def load_history():
 
 def save_history(messages):
     messages = messages[-50:]
-
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(messages, f, ensure_ascii=False, indent=2)
 
@@ -44,9 +43,9 @@ def save_history(messages):
 # -----------------------------
 # Language Detection
 # -----------------------------
-def detect_language(text):
+def detect_language(text, client, model_name):
     response = client.chat.completions.create(
-        model=MODEL_NAME,
+        model=model_name,
         messages=[
             {"role": "system", "content": "Return ONLY 'ar' or 'en'."},
             {"role": "user", "content": text}
@@ -57,7 +56,7 @@ def detect_language(text):
 
 
 # -----------------------------
-# Dynamic System Prompt
+# System Prompt
 # -----------------------------
 def get_system_prompt(lang):
     if lang == "ar":
@@ -79,14 +78,14 @@ If crisis intent appears, advise contacting emergency support.
 
 
 # -----------------------------
-# Translate (only if Arabic)
+# Translate
 # -----------------------------
-def translate(text, lang):
+def translate(text, lang, client, model_name):
     if lang == "en":
         return text
 
     response = client.chat.completions.create(
-        model=MODEL_NAME,
+        model=model_name,
         messages=[
             {"role": "system", "content": "Translate to simple Egyptian Arabic."},
             {"role": "user", "content": text}
@@ -100,9 +99,9 @@ def translate(text, lang):
 # -----------------------------
 # Emotion Classification
 # -----------------------------
-def classify_emotion(text):
+def classify_emotion(text, client, model_name):
     response = client.chat.completions.create(
-        model=MODEL_NAME,
+        model=model_name,
         messages=[
             {
                 "role": "system",
@@ -117,15 +116,15 @@ def classify_emotion(text):
 
 
 # -----------------------------
-# Generate Chat Response
+# Generate Response
 # -----------------------------
-def generate_response(messages, user_input):
+def generate_response(messages, user_input, client, model_name):
     messages.append({"role": "user", "content": user_input})
 
     trimmed_messages = messages[-20:]
 
     response = client.chat.completions.create(
-        model=MODEL_NAME,
+        model=model_name,
         messages=trimmed_messages,
         temperature=0.7
     )
@@ -140,33 +139,36 @@ def generate_response(messages, user_input):
 
 
 # -----------------------------
-# 🔥 API Function (المهم)
+# MAIN API FUNCTION
 # -----------------------------
-def process_chat(user_input):
+def process_chat(user_input, client, model_name):
     messages = load_history()
     first_turn = len(messages) == 0
 
     try:
         if first_turn:
-            lang = detect_language(user_input)
+            lang = detect_language(user_input, client, model_name)
 
             messages.append({
                 "role": "system",
                 "content": get_system_prompt(lang)
             })
 
-            emotion = classify_emotion(user_input)
+            emotion = classify_emotion(user_input, client, model_name)
             practice = select_practice(emotion)
 
         else:
             lang = "ar" if "أنت" in messages[0]["content"] else "en"
-            emotion = classify_emotion(user_input)
+            emotion = classify_emotion(user_input, client, model_name)
             practice = []
 
-        reply = generate_response(messages, user_input)
+        reply = generate_response(messages, user_input, client, model_name)
 
         if practice and lang == "ar":
-            practice = [translate(p, lang) for p in practice]
+            practice = [
+                translate(p, lang, client, model_name)
+                for p in practice
+            ]
 
         return {
             "reply": reply,
@@ -179,7 +181,7 @@ def process_chat(user_input):
 
 
 # -----------------------------
-# CLI version (اختياري)
+# CLI TEST (optional)
 # -----------------------------
 def chat():
     print("Mental Health Support Chatbot")
@@ -197,15 +199,19 @@ def chat():
             print("Bot: Take care.")
             break
 
-        result = process_chat(user_input)
+        result = process_chat(user_input, client, MODEL_NAME)
 
-        print("Bot:", result["reply"])
+        if "error" in result:
+            print("Bot ERROR:", result["error"])
+        else:
+            print("Bot:", result["reply"])
+
+            if result["practice"]:
+                print("Suggested Practice:")
+                for p in result["practice"]:
+                    print("-", p)
+
         print("-" * 50)
-
-        if result["practice"]:
-            print("Suggested Practice:")
-            for p in result["practice"]:
-                print(f"- {p}")
 
 
 if __name__ == "__main__":
