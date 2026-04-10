@@ -3,9 +3,10 @@ import random
 
 # Load once (not every call)
 #
-PRACTICE_PATH = "D:\Graduation_Project\mental_health_bot\project\Practice.xls"
+#PRACTICE_PATH = "D:\Graduation_Project\mental_health_bot\project\Practice.xls"
 PRACTICE_PATH = "Practice.xls"
-practice_df = pd.read_excel(PRACTICE_PATH)
+#practice_df = pd.read_excel(PRACTICE_PATH)
+practice_df = pd.read_excel("Practice.xlsx", engine="openpyxl")
 
 def select_practice(emotion, k=5):
     """
